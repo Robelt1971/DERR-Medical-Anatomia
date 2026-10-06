@@ -6,7 +6,7 @@
 > estudio, 8 sistemas, 2 984 estructuras (sin los modelos de origen no
 > comercial o sin licencia declarada ni las curvas auxiliares sin geometría), nombres en 7 idiomas (nl y pap: solo se muestran los revisados o de Wikipedia; el resto sale en latín);
 > código MIT, modelos y datos CC BY-SA 4.0; verificado con `tests/humo.mjs` en Chromium headless.
-> Código en `derr-medical/estudio-anatomia/`. · Responsable: Ernesto (Albert Rodríguez Robelt)
+> Código: este repositorio, <https://github.com/Robelt1971/DERR-Medical-Anatomia> (hasta el 2026-10-06 vivió en `derr-medical/estudio-anatomia/` del repositorio de perfil `Robelt1971/Robelt1971`; se trasladó con su historial). · Responsable: Ernesto (Albert Rodríguez Robelt)
 
 ---
 
@@ -28,7 +28,7 @@ CC BY-SA 2.1 JP). Ventajas: licencia que permite uso, modificación y
 redistribución; nomenclatura Terminologia Anatomica con traducción al español;
 definiciones enlazadas; proyecto activo (export automático del 2026-10-04).
 Coste: obligación de **atribuir y compartir igual** los modelos y datos
-derivados (no el código). Detalle en `derr-medical/estudio-anatomia/LICENSES.md`.
+derivados (no el código). Detalle en `LICENSES.md`.
 
 Otras opciones consideradas y descartadas por ahora: BodyParts3D directo (misma
 base pero sin traducciones ni organización por sistemas), Open Anatomy Project
@@ -76,7 +76,7 @@ Z-Anatomy/The-blend (GitHub, CC BY-SA 4.0)
         ▼
   scripts/comprimir.sh  (gltfpack -cc -kn -km -vpf)  129 MB → 29 MB
         ▼
-derr-medical/estudio-anatomia/            ← estático, sin build, sin backend
+raíz de este repositorio                  ← estático, sin build, sin backend
   index.html + app/{main,visor,datos,estudio,i18n}.js + vendor/three (MIT)
 ```
 
@@ -109,11 +109,11 @@ Decisiones técnicas:
   en la regeneración del 2026-10-06, que solo tocó `nervioso.glb`): se
   regenera poco y agrupando cambios, y el pipeline es reproducible byte a byte
   (`visceral.glb` salió idéntico al regenerarlo), así que un GLB solo cambia
-  cuando cambian su fuente o sus exclusiones. El traslado desde este
-  repositorio de perfil, conservando el historial del módulo, lo hace
-  `scripts/migrar_repo.sh` una vez exista el repositorio destino (requiere
-  crearlo a mano en GitHub: la integración de esta sesión no puede crear
-  repositorios).
+  cuando cambian su fuente o sus exclusiones. **Traslado hecho el
+  2026-10-06:** del repositorio de perfil `Robelt1971/Robelt1971` a este,
+  con `git filter-repo` (7 commits del módulo y de esta spec, 21 MB); el
+  guion de un solo uso que lo hizo se retiró después. El repositorio de
+  perfil conserva en su historial los GLB anteriores al traslado.
 - **Separación de responsabilidades en la app:** `i18n.js` es el único dueño
   del idioma de interfaz y del de nombres (y de su persistencia) y de las
   etiquetas de sistema; `estudio.js` tiene toda la política de los modos en
@@ -159,7 +159,7 @@ Decisiones técnicas:
 
 ## 5. Verificación
 
-`derr-medical/estudio-anatomia/tests/humo.mjs` (Playwright, Chromium headless
+`tests/humo.mjs` (Playwright, Chromium headless
 con WebGL por SwiftShader) comprueba en cada cambio: carga sin errores ni
 peticiones externas; los 8 GLB se decodifican y cada sistema mapea tantas
 estructuras como declara el manifiesto; dos cargas simultáneas del mismo
