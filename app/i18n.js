@@ -88,6 +88,8 @@ const SISTEMAS = {
 // Idiomas de nombres cuya tabla es propia de DERR y está pendiente de revisión clínica (ver datos.js:
 // un nombre de esa tabla solo se muestra si está revisado o viene de Wikipedia; si no, sale el latín).
 export const IDIOMAS_PENDIENTES = ['nl', 'pap'];
+// Idiomas en que pueden mostrarse los nombres anatómicos (coincide con el selector de index.html).
+export const IDIOMAS_NOMBRES = ['es', 'en', 'la', 'nl', 'pap', 'fr', 'pt'];
 // Clave de texto con el nombre de cada idioma de nombres, para etiquetas y avisos.
 const NOMBRE_IDIOMA = { es: 'espanol', en: 'ingles', la: 'latin', nl: 'neerlandes', pap: 'papiamento', fr: 'frances', pt: 'portugues' };
 export function nombreIdioma(code) { return t(NOMBRE_IDIOMA[code] || code); }
@@ -103,11 +105,19 @@ export function idioma() { return actual; }
 export function setIdiomaNombres(code) { nombres = code; setPref(PREF_NOMBRES, code); }
 export function idiomaNombres() { return nombres; }
 // Lee las preferencias guardadas; sin ellas, la interfaz sigue al navegador y los nombres salen en español.
+// Los parámetros de URL ?ui=es|en|nl y ?nombres=es|en|la|nl|pap|fr|pt mandan sobre lo guardado: así una
+// aplicación que incrusta el módulo (DERR Medical System) le pasa el idioma activo del usuario.
 export function cargarPreferencias() {
   const nav = navigator.language || 'es';
   const defecto = nav.startsWith('en') ? 'en' : nav.startsWith('nl') ? 'nl' : 'es';
   actual = TEXTOS[pref(PREF_UI, defecto)] ? pref(PREF_UI, defecto) : 'es';
   nombres = pref(PREF_NOMBRES, 'es');
+  let url;
+  try { url = new URLSearchParams(window.location.search); } catch { return; }
+  const ui = url.get('ui');
+  if (ui && TEXTOS[ui]) setIdioma(ui);
+  const nm = url.get('nombres');
+  if (nm && IDIOMAS_NOMBRES.includes(nm)) setIdiomaNombres(nm);
 }
 export function t(clave, vars = {}) {
   const s = (TEXTOS[actual] && TEXTOS[actual][clave]) ?? TEXTOS.es[clave] ?? clave;
