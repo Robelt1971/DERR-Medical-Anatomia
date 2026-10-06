@@ -1,0 +1,43 @@
+# Publica el módulo en GitHub Pages en cada push a main. La app es estática y sin build: el sitio es
+# el propio repositorio menos lo que no hace falta servir (pipeline, pruebas, control de versiones).
+# Antes de desplegar comprueba que los datos son coherentes (scripts/verificar_datos.py, sin dependencias).
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.desplegar.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprobar coherencia de datos
+        run: python3 scripts/verificar_datos.py
+      - name: Preparar el sitio
+        run: |
+          mkdir -p _sitio
+          rsync -a --exclude .git --exclude .github --exclude _sitio --exclude scripts --exclude tests ./ _sitio/
+          du -sh _sitio
+      - name: Activar Pages si hace falta
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _sitio
+      - id: desplegar
+        uses: actions/deploy-pages@v4
