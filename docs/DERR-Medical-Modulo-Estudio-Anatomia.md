@@ -6,7 +6,7 @@
 > estudio, 8 sistemas, 2 984 estructuras (sin los modelos de origen no
 > comercial o sin licencia declarada ni las curvas auxiliares sin geometría), nombres en 7 idiomas (nl y pap: solo se muestran los revisados o de Wikipedia; el resto sale en latín);
 > código MIT, modelos y datos CC BY-SA 4.0; verificado con `tests/humo.mjs` en Chromium headless.
-> Código: este repositorio, <https://github.com/Robelt1971/DERR-Medical-Anatomia> (hasta el 2026-10-06 vivió en `derr-medical/estudio-anatomia/` del repositorio de perfil `Robelt1971/Robelt1971`; se trasladó con su historial). · Responsable: Ernesto (Albert Rodríguez Robelt)
+> Código: este repositorio, <https://github.com/Robelt1971/DERR-Medical-Anatomia>. · Responsable: Ernesto (Albert Rodríguez Robelt)
 
 ---
 
@@ -110,10 +110,10 @@ Decisiones técnicas:
   regenera poco y agrupando cambios, y el pipeline es reproducible byte a byte
   (`visceral.glb` salió idéntico al regenerarlo), así que un GLB solo cambia
   cuando cambian su fuente o sus exclusiones. **Traslado hecho el
-  2026-10-06:** del repositorio de perfil `Robelt1971/Robelt1971` a este,
-  con `git filter-repo` (7 commits del módulo y de esta spec, 21 MB); el
-  guion de un solo uso que lo hizo se retiró después. El repositorio de
-  perfil conserva en su historial los GLB anteriores al traslado.
+  2026-10-06:** desde `derr-medical/estudio-anatomia/` del repositorio de
+  perfil `Robelt1971/Robelt1971` a este, con `git filter-repo`, conservando
+  el historial del módulo y de esta spec; el guion de un solo uso que lo hizo
+  se retiró después (está en el historial, commit `64b48bc`).
 - **Separación de responsabilidades en la app:** `i18n.js` es el único dueño
   del idioma de interfaz y del de nombres (y de su persistencia) y de las
   etiquetas de sistema; `estudio.js` tiene toda la política de los modos en
@@ -135,7 +135,7 @@ Decisiones técnicas:
 | Nervioso y órganos de los sentidos | 404 | 4,0 MB |
 | Visceral | 115 | 2,9 MB |
 | Regiones del cuerpo | 256 | 0,7 MB |
-| **Total** | **2 984** | **27 MB** |
+| **Total** | **2 984** | **28 MB** |
 
 - Nombres únicos (sin lado), traducciones y definiciones: las cifras actuales
   las imprime `scripts/verificar_datos.py`; la tabla de arriba es la de la
@@ -166,7 +166,11 @@ estructuras como declara el manifiesto; dos cargas simultáneas del mismo
 sistema comparten una promesa; el selector avisa de los idiomas pendientes;
 Identificar ofrece 4 opciones y avisa con nombres en papiamento; el buscador
 marca los nombres generados. `scripts/verificar_datos.py` comprueba la
-coherencia de los datos sin navegador. Cómo ejecutarlos: README del módulo.
+coherencia de los datos sin navegador. Cómo ejecutarlos: README.
+
+La prueba de humo se ejecuta a mano antes de mezclar (necesita Playwright).
+El despliegue automático a GitHub Pages (`.github/workflows/pages.yml`) solo
+ejecuta `verificar_datos.py`: una regresión en `app/` no lo detendría.
 
 Pendiente de probar en hardware real: rendimiento con todos los sistemas
 activos (~3,6 M de triángulos) en portátiles sin GPU dedicada.
@@ -188,10 +192,10 @@ activos (~3,6 M de triángulos) en portátiles sin GPU dedicada.
    ("Brainder", "White matter"; material `Brain`, `Brain-Inner`, `White
    matter`) no declaran licencia en el atlas y se excluyen con el mismo
    mecanismo (`scripts/listar_uw.py` mantiene la lista). Hueco didáctico:
-   sin corteza parcelada ni tractos. **Consulta enviada a Z-Anatomy el
-   2026-10-06** (<https://github.com/Z-Anatomy/Models-of-human-anatomy/issues/10>;
-   texto y estado en `docs/consulta-licencia-UW.md`), pendiente de respuesta;
-   si la licencia es compatible, se retiran de la lista y se regenera.
+   sin corteza parcelada ni tractos. **Consulta a Z-Anatomy enviada,
+   pendiente de respuesta** (texto, enlace y estado en
+   `docs/consulta-licencia-UW.md`); si la licencia es compatible, se retiran
+   de la lista y se regenera.
    **Licencia del código: HECHO (v0.4).** MIT, archivo `LICENSE`; modelos y
    datos siguen bajo CC BY-SA 4.0 (`LICENSES.md`).
 2. **Papiamento y neerlandés en nombres: HECHO (v0.2, 2026-10-05); política
