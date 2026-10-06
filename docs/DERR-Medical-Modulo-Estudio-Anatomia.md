@@ -74,7 +74,7 @@ Z-Anatomy/The-blend (GitHub, CC BY-SA 4.0)
         │  · estructuras.json (en/es/la/fr/pt, lado, grupo, materiales, def)
         │  · definiciones.json (resumen Wikipedia + URL)
         ▼
-  scripts/comprimir.sh  (gltfpack -cc -kn -km -vpf)  129 MB → 29 MB
+  scripts/comprimir.sh  (gltfpack -cc -kn -km -vpf)  129 MB → total en §4
         ▼
 raíz de este repositorio                  ← estático, sin build, sin backend
   index.html + app/{main,visor,datos,estudio,i18n}.js + vendor/three (MIT)
@@ -105,15 +105,16 @@ Decisiones técnicas:
   banda se agota con pocas descargas; se descarta el alojamiento externo
   porque rompería la propiedad, verificada en `tests/humo.mjs`, de que la app
   no hace ninguna petición fuera de su origen. El coste es que cada
-  regeneración añade los GLB regenerados al historial (hoy 27 MB en total, 4 MB
-  en la regeneración del 2026-10-06, que solo tocó `nervioso.glb`): se
-  regenera poco y agrupando cambios, y el pipeline es reproducible byte a byte
+  regeneración añade los GLB regenerados al historial (tamaños en §4; la
+  regeneración del 2026-10-06 solo tocó `nervioso.glb`): se regenera poco y
+  agrupando cambios, y el pipeline es reproducible byte a byte
   (`visceral.glb` salió idéntico al regenerarlo), así que un GLB solo cambia
-  cuando cambian su fuente o sus exclusiones. **Traslado hecho el
-  2026-10-06:** desde `derr-medical/estudio-anatomia/` del repositorio de
-  perfil `Robelt1971/Robelt1971` a este, con `git filter-repo`, conservando
-  el historial del módulo y de esta spec; el guion de un solo uso que lo hizo
-  se retiró después (está en el historial, commit `64b48bc`).
+  cuando cambian su fuente o sus exclusiones.
+- **Traslado al repositorio propio (2026-10-06):** desde
+  `derr-medical/estudio-anatomia/` del repositorio de perfil
+  `Robelt1971/Robelt1971` a este, con `git filter-repo`, conservando el
+  historial del módulo y de esta spec. El guion de un solo uso que lo hizo se
+  retiró después; su última versión está en el commit `64b48bc`.
 - **Separación de responsabilidades en la app:** `i18n.js` es el único dueño
   del idioma de interfaz y del de nombres (y de su persistencia) y de las
   etiquetas de sistema; `estudio.js` tiene toda la política de los modos en
@@ -192,10 +193,9 @@ activos (~3,6 M de triángulos) en portátiles sin GPU dedicada.
    ("Brainder", "White matter"; material `Brain`, `Brain-Inner`, `White
    matter`) no declaran licencia en el atlas y se excluyen con el mismo
    mecanismo (`scripts/listar_uw.py` mantiene la lista). Hueco didáctico:
-   sin corteza parcelada ni tractos. **Consulta a Z-Anatomy enviada,
-   pendiente de respuesta** (texto, enlace y estado en
-   `docs/consulta-licencia-UW.md`); si la licencia es compatible, se retiran
-   de la lista y se regenera.
+   sin corteza parcelada ni tractos. Consulta a Z-Anatomy: texto, enlace y
+   estado en `docs/consulta-licencia-UW.md`; si la licencia resulta
+   compatible, se retiran de la lista y se regenera.
    **Licencia del código: HECHO (v0.4).** MIT, archivo `LICENSE`; modelos y
    datos siguen bajo CC BY-SA 4.0 (`LICENSES.md`).
 2. **Papiamento y neerlandés en nombres: HECHO (v0.2, 2026-10-05); política
