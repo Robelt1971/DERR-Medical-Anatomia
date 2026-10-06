@@ -11,7 +11,7 @@ Los módulos ES y `fetch()` no funcionan abriendo el archivo directamente; hace
 falta cualquier servidor estático:
 
 ```bash
-cd derr-medical/estudio-anatomia
+git clone https://github.com/Robelt1971/DERR-Medical-Anatomia && cd DERR-Medical-Anatomia
 python3 -m http.server 8080
 # abrir http://localhost:8080/
 ```
@@ -26,7 +26,7 @@ python3 -m http.server 8080
 | `data/definiciones.json` | Resúmenes en inglés (Wikipedia, CC BY-SA; uno de Open Anatomy) con enlace a la fuente, que la ficha muestra por dominio. |
 | `data/nombres-nl-pap.json` | Tabla propia de DERR: nombre en neerlandés y papiamento (Aruba) por nombre inglés, con la fuente de cada uno: `wikipedia-nl` (título coincidente en la Wikipedia en neerlandés), `ia` (generado por modelo de lenguaje) o `revisado` (revisión clínica). **Un nombre `ia` no se muestra nunca**: en su lugar la app enseña el latín (Terminologia Anatomica) y lo dice en la ficha y en los ejercicios; el selector de idioma marca nl y pap con ⚠ mientras quede algo sin revisar. |
 | `data/revision-nombres-nl-pap.csv` | Hoja maestra de revisión clínica (separador `;`). Se trabaja por oleadas: `scripts/oleada_revision.py --sistemas esqueletico muscular --salida oleada-1.csv` saca la hoja de esos sistemas; el revisor marca `ok_nl`/`ok_pap` o escribe la corrección en Excel, y `scripts/aplicar_revision.py --csv oleada-1.csv` vuelca el resultado al JSON con fuente `revisado`. |
-| `scripts/` | Pipeline reproducible desde el `.blend` original (ver abajo): `exportar_zanatomy.py`, `comprimir.sh`, `exclusiones.json` (estructuras y definiciones que no se exportan), `listar_uw.py` (mantiene la lista de objetos de la UW), `verificar_datos.py` (coherencia manifiesto ↔ GLB ↔ tabla nl/pap), `oleada_revision.py` y `aplicar_revision.py` (hoja de revisión ↔ JSON), `migrar_repo.sh` (traslado a un repositorio propio). |
+| `scripts/` | Pipeline reproducible desde el `.blend` original (ver abajo): `exportar_zanatomy.py`, `comprimir.sh`, `exclusiones.json` (estructuras y definiciones que no se exportan), `listar_uw.py` (mantiene la lista de objetos de la UW), `verificar_datos.py` (coherencia manifiesto ↔ GLB ↔ tabla nl/pap), `oleada_revision.py` y `aplicar_revision.py` (hoja de revisión ↔ JSON). |
 | `tests/humo.mjs` | Prueba de humo en Chromium sin cabeza (abajo). |
 | `LICENSE` | Licencia MIT del código de la app. |
 | `LICENSES.md` | Licencia por archivo: qué es MIT, qué es CC BY-SA y las atribuciones obligatorias. Léelo antes de redistribuir. |
@@ -72,7 +72,6 @@ lo deja en la cabecera del manifiesto (`source_commit`).
 ## Probar
 
 ```bash
-cd derr-medical/estudio-anatomia
 python3 -m http.server 8080 &
 node tests/humo.mjs http://127.0.0.1:8080/    # requiere Playwright con Chromium
 ```
