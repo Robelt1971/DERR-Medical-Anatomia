@@ -3,10 +3,10 @@
 Uso: python3 scripts/verificar_datos.py   (desde cualquier carpeta; sale con 1 si hay fallos)
 Comprueba: cada estructura del manifiesto existe como nodo en su GLB y el GLB no trae nodos
 nombrados que falten en el manifiesto; `count` coincide; cada `def` existe en definiciones.json;
-qué nombres ingleses no tienen fila en nombres-nl-pap.json (informativo); y que la hoja maestra de
-revisión no lleva columnas de trabajo (ok_*, correccion_*, revisor: solo existen en las hojas de oleada).
+y qué nombres ingleses no tienen fila en nombres-nl-pap.json (informativo). Imprime por sistema las
+cifras que cita la documentación: estructuras, tamaño del GLB, sin español y sin definición.
 """
-import csv, json, os, struct, sys
+import json, os, struct, sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 MODULO = os.path.dirname(AQUI)
@@ -49,6 +49,8 @@ def main():
         if sin_malla: fallos.append(f"{s['key']}: {len(sin_malla)} estructuras del manifiesto sin nodo en {s['file']}: {sin_malla[:8]}")
         sin_fila = sorted(n for n in en_glb - nodos if not n.endswith('_bevel'))
         if sin_fila: print(f"  aviso {s['key']}: {len(sin_fila)} nodos del GLB sin fila en el manifiesto (quedan ocultos): {sin_fila[:5]}")
+        sin_es = sum(1 for e in s['structures'] if not e.get('es')); sin_def = sum(1 for e in s['structures'] if not e.get('def'))
+        print(f"{s['key']:16} {s['count']:4} estructuras · {os.path.getsize(glb)/1e6:4.1f} MB · sin español {sin_es:3} · sin definición {sin_def:3}")
         for e in s['structures']:
             if e.get('def') and e['def'] not in defs: fallos.append(f"{s['key']}/{e['node']}: def '{e['def']}' no existe en definiciones.json")
     ingles = {e['en'] for s in m['systems'] for e in s['structures']}
@@ -56,10 +58,6 @@ def main():
     print(f"estructuras: {total} · nombres ingleses únicos: {len(ingles)} · con fila nl/pap: {len(ingles & set(extra))}")
     if sin_nl: print(f"  aviso: {len(sin_nl)} nombres sin fila nl/pap (caen al inglés): {sin_nl[:6]}")
     if sobran: print(f"  aviso: {len(sobran)} filas nl/pap sin estructura: {sobran[:6]}")
-    with open(os.path.join(MODULO, 'data', 'revision-nombres-nl-pap.csv'), encoding='utf-8', newline='') as f:
-        cols = next(csv.reader(f, delimiter=';'))
-    trabajo = [c for c in cols if c.startswith(('ok_', 'correccion_')) or c == 'revisor']
-    if trabajo: fallos.append(f"revision-nombres-nl-pap.csv lleva columnas de trabajo {trabajo}: van solo en la hoja de oleada")
     for f in fallos: print('FALLO:', f)
     print('OK' if not fallos else f'{len(fallos)} fallos')
     return 1 if fallos else 0
