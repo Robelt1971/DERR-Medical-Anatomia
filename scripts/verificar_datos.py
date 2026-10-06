@@ -3,7 +3,8 @@
 Uso: python3 scripts/verificar_datos.py   (desde cualquier carpeta; sale con 1 si hay fallos)
 Comprueba: cada estructura del manifiesto existe como nodo en su GLB y el GLB no trae nodos
 nombrados que falten en el manifiesto; `count` coincide; cada `def` existe en definiciones.json;
-y qué nombres ingleses no tienen fila en nombres-nl-pap.json (informativo). Imprime por sistema las
+qué nombres ingleses no tienen fila en nombres-nl-pap.json (informativo); y que las pistas nl_ia / nl_ref
+de esa tabla acompañan a la fuente que les corresponde (wikipedia-nl / ia) y nunca van juntas. Imprime por sistema las
 cifras que cita la documentación: estructuras, tamaño del GLB, sin español y sin definición.
 """
 import json, os, struct, sys
@@ -58,6 +59,11 @@ def main():
     print(f"estructuras: {total} · nombres ingleses únicos: {len(ingles)} · con fila nl/pap: {len(ingles & set(extra))}")
     if sin_nl: print(f"  aviso: {len(sin_nl)} nombres sin fila nl/pap (caen al inglés): {sin_nl[:6]}")
     if sobran: print(f"  aviso: {len(sobran)} filas nl/pap sin estructura: {sobran[:6]}")
+    PISTA = {'nl_ia': 'wikipedia-nl', 'nl_ref': 'ia'}
+    for en, t in extra.items():
+        pistas = [k for k in PISTA if k in t]
+        if len(pistas) > 1 or any(t.get('nl_fuente') not in (PISTA[k], 'revisado') for k in pistas):
+            fallos.append(f"nombres-nl-pap.json/{en}: pista {pistas} incompatible con nl_fuente={t.get('nl_fuente')!r}")
     for f in fallos: print('FALLO:', f)
     print('OK' if not fallos else f'{len(fallos)} fallos')
     return 1 if fallos else 0
