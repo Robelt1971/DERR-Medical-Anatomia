@@ -85,7 +85,7 @@ Decisiones técnicas:
 - **Estático y sin dependencias de red:** three.js y el decodificador meshopt
   van vendorizados; nada se descarga de CDN. Encaja con la regla DERR de no
   depender de terceros en tiempo de ejecución.
-- **Un GLB por sistema, carga perezosa:** el esqueleto (2,2 MB) carga al abrir;
+- **Un GLB por sistema, carga perezosa:** el esqueleto carga al abrir;
   el resto al activar la capa. Permite uso con conexiones modestas.
 - **Identidad por nombre de nodo:** la app no depende de IDs internos de
   Blender. Cada nodo del GLB se llama como el objeto del atlas
@@ -113,8 +113,7 @@ Decisiones técnicas:
 - **Traslado al repositorio propio (2026-10-06):** desde
   `derr-medical/estudio-anatomia/` del repositorio de perfil
   `Robelt1971/Robelt1971` a este, con `git filter-repo`, conservando el
-  historial del módulo y de esta spec. El guion de un solo uso que lo hizo se
-  retiró después; su última versión está en el commit `64b48bc`.
+  historial del módulo y de esta spec.
 - **Separación de responsabilidades en la app:** `i18n.js` es el único dueño
   del idioma de interfaz y del de nombres (y de su persistencia) y de las
   etiquetas de sistema; `estudio.js` tiene toda la política de los modos en
@@ -193,9 +192,8 @@ activos (~3,6 M de triángulos) en portátiles sin GPU dedicada.
    ("Brainder", "White matter"; material `Brain`, `Brain-Inner`, `White
    matter`) no declaran licencia en el atlas y se excluyen con el mismo
    mecanismo (`scripts/listar_uw.py` mantiene la lista). Hueco didáctico:
-   sin corteza parcelada ni tractos. Consulta a Z-Anatomy: texto, enlace y
-   estado en `docs/consulta-licencia-UW.md`; si la licencia resulta
-   compatible, se retiran de la lista y se regenera.
+   sin corteza parcelada ni tractos. Consulta a Z-Anatomy:
+   `docs/consulta-licencia-UW.md`.
    **Licencia del código: HECHO (v0.4).** MIT, archivo `LICENSE`; modelos y
    datos siguen bajo CC BY-SA 4.0 (`LICENSES.md`).
 2. **Papiamento y neerlandés en nombres: HECHO (v0.2, 2026-10-05); política

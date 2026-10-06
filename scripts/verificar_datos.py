@@ -3,9 +3,10 @@
 Uso: python3 scripts/verificar_datos.py   (desde cualquier carpeta; sale con 1 si hay fallos)
 Comprueba: cada estructura del manifiesto existe como nodo en su GLB y el GLB no trae nodos
 nombrados que falten en el manifiesto; `count` coincide; cada `def` existe en definiciones.json;
-y qué nombres ingleses no tienen fila en nombres-nl-pap.json (informativo).
+qué nombres ingleses no tienen fila en nombres-nl-pap.json (informativo); y que la hoja maestra de
+revisión no lleva columnas de trabajo (ok_*, correccion_*, revisor: solo existen en las hojas de oleada).
 """
-import json, os, struct, sys
+import csv, json, os, struct, sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 MODULO = os.path.dirname(AQUI)
@@ -55,6 +56,10 @@ def main():
     print(f"estructuras: {total} · nombres ingleses únicos: {len(ingles)} · con fila nl/pap: {len(ingles & set(extra))}")
     if sin_nl: print(f"  aviso: {len(sin_nl)} nombres sin fila nl/pap (caen al inglés): {sin_nl[:6]}")
     if sobran: print(f"  aviso: {len(sobran)} filas nl/pap sin estructura: {sobran[:6]}")
+    with open(os.path.join(MODULO, 'data', 'revision-nombres-nl-pap.csv'), encoding='utf-8', newline='') as f:
+        cols = next(csv.reader(f, delimiter=';'))
+    trabajo = [c for c in cols if c.startswith(('ok_', 'correccion_')) or c == 'revisor']
+    if trabajo: fallos.append(f"revision-nombres-nl-pap.csv lleva columnas de trabajo {trabajo}: van solo en la hoja de oleada")
     for f in fallos: print('FALLO:', f)
     print('OK' if not fallos else f'{len(fallos)} fallos')
     return 1 if fallos else 0

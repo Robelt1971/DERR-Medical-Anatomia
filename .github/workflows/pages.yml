@@ -1,5 +1,4 @@
-# Publica el repositorio tal cual en GitHub Pages en cada push a main (la app es estática, sin build).
-# La única puerta es scripts/verificar_datos.py; la política de pruebas está en la spec, §5.
+# Publica el repositorio tal cual en GitHub Pages en cada push a main (app estática, sin build). Política de pruebas: spec §5.
 name: Publicar en GitHub Pages
 
 on:

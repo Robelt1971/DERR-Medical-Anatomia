@@ -1,10 +1,8 @@
 # Consulta a Z-Anatomy sobre la licencia de "Brainder" y "White matter"
 
 Texto del *issue* abierto a Z-Anatomy (en inglés, que es el idioma del
-proyecto) y su estado, que solo se registra aquí. Mientras no haya respuesta,
-los objetos siguen excluidos del módulo (`scripts/exclusiones.json`,
-`LICENSES.md`). Si la respuesta es una licencia compatible con CC BY-SA 4.0,
-se retiran esas entradas de la lista y se regenera `nervioso.glb`.
+proyecto) y su estado, que solo se registra aquí. Qué se hace con la respuesta
+lo dice `LICENSES.md`.
 
 Estado: **enviada el 2026-10-06** por Albert Rodríguez Robelt como
 <https://github.com/Z-Anatomy/Models-of-human-anatomy/issues/10> (se abrió en

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Prepara la hoja de una oleada de revisión clínica: las filas de data/revision-nombres-nl-pap.csv
-de los sistemas indicados, solo las que siguen sin revisar en algún idioma, con las columnas de
-trabajo vacías. La hoja devuelta se rellena (ok_nl / ok_pap / correccion_nl / correccion_pap /
-revisor) y se vuelca con scripts/aplicar_revision.py --csv <hoja>.
+de los sistemas indicados, solo las que siguen sin revisar en algún idioma, más las columnas de
+trabajo (ok_nl / ok_pap / correccion_nl / correccion_pap / revisor), que la hoja maestra no tiene:
+así los nombres de revisores nunca entran en el repositorio. La hoja rellena se vuelca con
+scripts/aplicar_revision.py --csv <hoja>.
 Uso: python3 scripts/oleada_revision.py --sistemas esqueletico muscular --salida oleada-1.csv
      python3 scripts/oleada_revision.py --listar          (cuántos nombres quedan por sistema)
 """
@@ -30,10 +31,10 @@ def main():
         return 0
     sel = [f for f in filas if f['sistema'] in set(a.sistemas) and pendiente(f)]
     if not sel: print('ninguna fila para esos sistemas', file=sys.stderr); return 1
-    campos = list(filas[0].keys())
+    campos = list(filas[0].keys()) + list(TRABAJO)
     with open(a.salida, 'w', encoding='utf-8', newline='') as out:
         w = csv.DictWriter(out, fieldnames=campos, delimiter=';'); w.writeheader()
-        for f in sel: w.writerow({k: ('' if k in TRABAJO else f[k]) for k in campos})
+        for f in sel: w.writerow({**f, **{k: '' for k in TRABAJO}})
     print(f'{len(sel)} nombres de {", ".join(a.sistemas)} en {a.salida}')
     return 0
 
