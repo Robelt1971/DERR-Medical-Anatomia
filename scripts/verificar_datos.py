@@ -47,10 +47,10 @@ def main():
         en_glb = nodos_glb(glb)
         sin_malla = sorted(nodos - en_glb)
         if sin_malla: fallos.append(f"{s['key']}: {len(sin_malla)} estructuras del manifiesto sin nodo en {s['file']}: {sin_malla[:8]}")
+        sin_es = sum(1 for e in s['structures'] if not e.get('es')); sin_def = sum(1 for e in s['structures'] if not e.get('def'))
+        print(f"{s['key']:16} {len(s['structures']):4} estructuras · {os.path.getsize(glb)/1e6:4.1f} MB · sin español {sin_es:3} · sin definición {sin_def:3}")
         sin_fila = sorted(n for n in en_glb - nodos if not n.endswith('_bevel'))
         if sin_fila: print(f"  aviso {s['key']}: {len(sin_fila)} nodos del GLB sin fila en el manifiesto (quedan ocultos): {sin_fila[:5]}")
-        sin_es = sum(1 for e in s['structures'] if not e.get('es')); sin_def = sum(1 for e in s['structures'] if not e.get('def'))
-        print(f"{s['key']:16} {s['count']:4} estructuras · {os.path.getsize(glb)/1e6:4.1f} MB · sin español {sin_es:3} · sin definición {sin_def:3}")
         for e in s['structures']:
             if e.get('def') and e['def'] not in defs: fallos.append(f"{s['key']}/{e['node']}: def '{e['def']}' no existe en definiciones.json")
     ingles = {e['en'] for s in m['systems'] for e in s['structures']}

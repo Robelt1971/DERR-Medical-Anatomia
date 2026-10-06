@@ -7,6 +7,8 @@ La ficha muestra "revisado clínicamente" para esa fuente y deja de avisar.
 Solo escribe el JSON, que es el dato que usa la app. Ejecutar luego scripts/verificar_datos.py.
 """
 import argparse, csv, json, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from oleada_revision import IDIOMAS, TRABAJO  # contrato de la hoja de oleada
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(os.path.dirname(AQUI), 'data')
@@ -20,15 +22,15 @@ def main():
     tabla_path = os.path.join(DATA, 'nombres-nl-pap.json')
     tabla = json.load(open(tabla_path, encoding='utf-8'))
     cambios = {'nl': 0, 'pap': 0}; desconocidos = []
-    with open(a.csv, encoding='utf-8', newline='') as f:
+    with open(a.csv, encoding='utf-8-sig', newline='') as f:  # utf-8-sig: Excel puede anteponer un BOM
         lector = csv.DictReader(f, delimiter=';')
-        faltan = [c for c in ('ingles', 'ok_nl', 'ok_pap', 'correccion_nl', 'correccion_pap') if c not in (lector.fieldnames or [])]
+        faltan = [c for c in ('ingles', *TRABAJO) if c not in (lector.fieldnames or [])]
         if faltan: print(f'{a.csv}: no es una hoja de oleada (faltan columnas {faltan}; ¿separador distinto de ";"?)', file=sys.stderr); return 1
         for fila in lector:
             en = (fila.get('ingles') or '').strip()
             if not en: continue
             if en not in tabla: desconocidos.append(en); continue
-            for lang in ('nl', 'pap'):
+            for lang in IDIOMAS:
                 ok = (fila.get(f'ok_{lang}') or '').strip().lower() in SI
                 corr = (fila.get(f'correccion_{lang}') or '').strip()
                 if not ok and not corr: continue
