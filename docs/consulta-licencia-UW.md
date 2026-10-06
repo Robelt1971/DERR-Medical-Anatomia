@@ -1,8 +1,9 @@
 # Consulta a Z-Anatomy sobre la licencia de "Brainder" y "White matter"
 
-Borrador para abrir un *issue* en <https://github.com/Z-Anatomy/The-blend/issues>
-(en inglés, que es el idioma del proyecto). Mientras no haya respuesta, los
-objetos siguen excluidos del módulo (`scripts/exclusiones.json`,
+Texto del *issue* abierto a Z-Anatomy (en inglés, que es el idioma del
+proyecto) y su estado. Este archivo es el único que registra fecha, enlace y
+respuesta; los demás documentos solo apuntan aquí. Mientras no haya respuesta,
+los objetos siguen excluidos del módulo (`scripts/exclusiones.json`,
 `LICENSES.md`). Si la respuesta es una licencia compatible con CC BY-SA 4.0,
 se retiran esas entradas de la lista y se regenera `nervioso.glb`.
 

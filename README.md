@@ -8,8 +8,7 @@ módulos ES + three.js vendorizado.
 ## Ejecutar
 
 Versión publicada: <https://robelt1971.github.io/DERR-Medical-Anatomia/> (GitHub
-Pages; se despliega desde `main` con `.github/workflows/pages.yml`, que antes
-comprueba los datos con `scripts/verificar_datos.py`).
+Pages; se despliega desde `main` con `.github/workflows/pages.yml`).
 
 En local, los módulos ES y `fetch()` no funcionan abriendo el archivo directamente; hace
 falta cualquier servidor estático:
@@ -108,5 +107,5 @@ definición del propio archivo.
   están incluidos: sus modelos de origen son no comerciales. Tampoco la
   corteza cerebral parcelada, la sustancia blanca y los tractos ("Brainder" y
   "White matter", Universidad de Washington): el atlas no declara su licencia.
-  Lista en `scripts/exclusiones.json`; detalle y consulta pendiente en
-  `LICENSES.md` y `docs/consulta-licencia-UW.md`.
+  Lista en `scripts/exclusiones.json`; detalle en `LICENSES.md`; consulta a
+  Z-Anatomy y su estado en `docs/consulta-licencia-UW.md`.

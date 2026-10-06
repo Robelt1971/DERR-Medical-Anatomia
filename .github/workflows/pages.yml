@@ -1,6 +1,7 @@
-# Publica el módulo en GitHub Pages en cada push a main. La app es estática y sin build: el sitio es
-# el propio repositorio menos lo que no hace falta servir (pipeline, pruebas, control de versiones).
+# Publica el módulo en GitHub Pages en cada push a main. La app es estática y sin build: se sirve el
+# repositorio tal cual, menos la hoja de revisión clínica (lleva nombres de revisores y la app no la usa).
 # Antes de desplegar comprueba que los datos son coherentes (scripts/verificar_datos.py, sin dependencias).
+# La prueba de humo (tests/humo.mjs) no se ejecuta aquí: necesita Playwright y se pasa a mano antes de mezclar.
 name: Publicar en GitHub Pages
 
 on:
@@ -13,9 +14,10 @@ permissions:
   pages: write
   id-token: write
 
+# Un despliegue en curso se deja terminar (misma pauta que la plantilla oficial de Pages): el siguiente espera.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   publicar:
@@ -27,17 +29,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Comprobar coherencia de datos
         run: python3 scripts/verificar_datos.py
-      - name: Preparar el sitio
-        run: |
-          mkdir -p _sitio
-          rsync -a --exclude .git --exclude .github --exclude _sitio --exclude scripts --exclude tests ./ _sitio/
-          du -sh _sitio
-      - name: Activar Pages si hace falta
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      - name: Quitar del sitio la hoja de revisión clínica
+        run: rm data/revision-nombres-nl-pap.csv
+      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _sitio
+          path: .
       - id: desplegar
         uses: actions/deploy-pages@v4
