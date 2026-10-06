@@ -2,10 +2,10 @@
 __pycache__/
 *.pyc
 
-# Node (la prueba de humo usa Playwright instalado aparte; no se vendoriza)
+# Node
 node_modules/
 
-# Hojas de oleada de revisión clínica: llevan el nombre del revisor y no se guardan en el repositorio
+# Hojas de oleada de revisión clínica (scripts/oleada_revision.py)
 oleada-*.csv
 
 # Sistema operativo y editores

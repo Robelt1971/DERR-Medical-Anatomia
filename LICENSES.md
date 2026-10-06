@@ -19,9 +19,9 @@ comerciales y los dos sin licencia declarada (Universidad de Washington) están
 | Archivo | Licencia efectiva | Motivo |
 |---|---|---|
 | `modelos/esqueletico.glb`, `articulaciones.glb`, `muscular.glb`, `cardiovascular.glb`, `linfoide.glb`, `visceral.glb`, `regiones.glb` | CC BY-SA 4.0 | Solo contenido Z-Anatomy / BodyParts3D. El riñón no comercial está excluido de `visceral.glb`. |
-| `modelos/nervioso.glb` | CC BY-SA 4.0 | Oído interno (no comercial, excluido desde el 2026-10-05) y objetos de la Universidad de Washington (licencia no declarada, excluidos desde el 2026-10-06). Las versiones anteriores del archivo no se redistribuyen (abajo). |
+| `modelos/nervioso.glb` | CC BY-SA 4.0 | Oído interno (no comercial) y objetos de la Universidad de Washington (licencia no declarada) excluidos; sobre las versiones anteriores del archivo, abajo. |
 | `data/estructuras.json`, `data/definiciones.json` | CC BY-SA 4.0 | Derivados de Z-Anatomy. Las definiciones son texto de Wikipedia en inglés (CC BY-SA 3.0 o 4.0 según la fecha de extracción por Z-Anatomy), salvo una (`Apical axillary nodes`) tomada del visor TA2 de Open Anatomy; la ficha indica la fuente de cada una por su dominio. La definición de `Intermediate bronchus`, copiada de Radiopaedia (CC BY-NC-SA, incompatible), se omite en el export (clave `definiciones` de `scripts/exclusiones.json`). |
-| `data/nombres-nl-pap.json`, `data/revision-nombres-nl-pap.csv` | CC BY-SA 4.0 | Tabla propia de DERR (ver abajo). |
+| `data/nombres-nl-pap.json` | CC BY-SA 4.0 | Tabla propia de DERR (ver abajo). |
 
 Consecuencias prácticas:
 
@@ -71,10 +71,7 @@ y regenerar.
 
 **Los dos modelos de la Universidad de Washington ("Brainder", "White matter")
 están excluidos desde el 2026-10-06.** El atlas los atribuye pero no declara
-su licencia, y lo que no se puede licenciar no se redistribuye. Hasta esa
-fecha `nervioso.glb` los contenía: no deben redistribuirse ni las versiones
-anteriores de este repositorio ni las copias que queden en el repositorio de
-perfil `Robelt1971/Robelt1971`, origen del módulo (spec §3). Son los 103
+su licencia, y lo que no se puede licenciar no se redistribuye. Son los 103
 nombres (174 objetos con lado) de corteza cerebral (giros y surcos con
 nomenclatura del atlas de Destrieux), sustancia blanca, comisuras y tractos
 listados en `scripts/exclusiones.json` con origen "Brainder / White matter".
@@ -87,6 +84,11 @@ no se aclare, el visor no muestra la corteza parcelada ni los tractos.
 Consulta a Z-Anatomy (texto, enlace y estado): `docs/consulta-licencia-UW.md`;
 si responden con una licencia compatible, basta con retirar esas entradas de
 la lista y regenerar.
+
+**Versiones anteriores a cada exclusión:** los GLB publicados antes de esas
+fechas contenían el material excluido. No deben redistribuirse ni desde el
+historial de este repositorio ni desde las copias que queden en el repositorio
+de perfil `Robelt1971/Robelt1971`, origen del módulo (spec §3).
 
 Traducciones de las estructuras (es/fr/pt/la) aportadas en Z-Anatomy por Carlos
 Torres Villar (español), Ana Teresa Bigio (portugués) y colaboradores.

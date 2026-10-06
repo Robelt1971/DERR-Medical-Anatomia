@@ -4,8 +4,7 @@ Uso: python3 scripts/aplicar_revision.py --csv <hoja-rellena.csv> [--seco]
 Por cada fila: si ok_nl vale "si"/"sí"/"x"/"ok", o hay correccion_nl, el nombre neerlandés pasa a
 `nl_fuente: "revisado"` (con la corrección si la hay). Igual para pap. Las filas sin marcar no cambian.
 La ficha muestra "revisado clínicamente" para esa fuente y deja de avisar.
-La hoja de oleada no se guarda en el repositorio (lleva el nombre del revisor); el JSON es el dato
-que usa la app. Ejecutar luego scripts/verificar_datos.py.
+Solo escribe el JSON, que es el dato que usa la app. Ejecutar luego scripts/verificar_datos.py.
 """
 import argparse, csv, json, os, sys
 
@@ -15,14 +14,17 @@ SI = {'si', 'sí', 'x', 'ok', 'yes', 'ja', '1', 'true'}
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--csv', required=True, help='hoja de oleada rellena (no la hoja maestra)')
+    ap.add_argument('--csv', required=True, help='hoja de oleada rellena (scripts/oleada_revision.py)')
     ap.add_argument('--seco', action='store_true', help='solo informa, no escribe')
     a = ap.parse_args()
     tabla_path = os.path.join(DATA, 'nombres-nl-pap.json')
     tabla = json.load(open(tabla_path, encoding='utf-8'))
     cambios = {'nl': 0, 'pap': 0}; desconocidos = []
     with open(a.csv, encoding='utf-8', newline='') as f:
-        for fila in csv.DictReader(f, delimiter=';'):
+        lector = csv.DictReader(f, delimiter=';')
+        faltan = [c for c in ('ingles', 'ok_nl', 'ok_pap', 'correccion_nl', 'correccion_pap') if c not in (lector.fieldnames or [])]
+        if faltan: print(f'{a.csv}: no es una hoja de oleada (faltan columnas {faltan}; ¿separador distinto de ";"?)', file=sys.stderr); return 1
+        for fila in lector:
             en = (fila.get('ingles') or '').strip()
             if not en: continue
             if en not in tabla: desconocidos.append(en); continue
