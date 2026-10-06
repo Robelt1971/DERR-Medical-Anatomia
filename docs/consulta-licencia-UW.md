@@ -6,8 +6,11 @@ objetos siguen excluidos del módulo (`scripts/exclusiones.json`,
 `LICENSES.md`). Si la respuesta es una licencia compatible con CC BY-SA 4.0,
 se retiran esas entradas de la lista y se regenera `nervioso.glb`.
 
-Estado: **sin enviar** (fecha de redacción: 2026-10-06). Quien lo envíe,
-anote aquí el enlace del issue y la fecha.
+Estado: **enviada el 2026-10-06** por Albert Rodríguez Robelt como
+<https://github.com/Z-Anatomy/Models-of-human-anatomy/issues/10> (en el repositorio
+`Models-of-human-anatomy` de la misma organización, no en `The-blend`; los
+mantenedores son los mismos). **Sin respuesta todavía.** Cuando respondan,
+anotar aquí la fecha y lo decidido.
 
 ---
 

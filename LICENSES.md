@@ -81,9 +81,10 @@ matter`), único rastro de procedencia que deja el `.blend`
 conservador y puede arrastrar algún objeto propio del atlas que comparta
 material (puente, bulbo raquídeo, hipotálamo, astas de la médula). Mientras
 no se aclare, el visor no muestra la corteza parcelada ni los tractos. La
-consulta a Z-Anatomy está redactada en `docs/consulta-licencia-UW.md`; si
-responden con una licencia compatible, basta con retirar esas entradas de la
-lista y regenerar.
+consulta a Z-Anatomy se envió el 2026-10-06
+(<https://github.com/Z-Anatomy/Models-of-human-anatomy/issues/10>; texto y estado en
+`docs/consulta-licencia-UW.md`); si responden con una licencia compatible,
+basta con retirar esas entradas de la lista y regenerar.
 
 Traducciones de las estructuras (es/fr/pt/la) aportadas en Z-Anatomy por Carlos
 Torres Villar (español), Ana Teresa Bigio (portugués) y colaboradores.

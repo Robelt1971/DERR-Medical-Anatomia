@@ -188,8 +188,9 @@ activos (~3,6 M de triángulos) en portátiles sin GPU dedicada.
    ("Brainder", "White matter"; material `Brain`, `Brain-Inner`, `White
    matter`) no declaran licencia en el atlas y se excluyen con el mismo
    mecanismo (`scripts/listar_uw.py` mantiene la lista). Hueco didáctico:
-   sin corteza parcelada ni tractos. **Pendiente de la respuesta de
-   Z-Anatomy** a la consulta de `docs/consulta-licencia-UW.md` (en el módulo);
+   sin corteza parcelada ni tractos. **Consulta enviada a Z-Anatomy el
+   2026-10-06** (<https://github.com/Z-Anatomy/Models-of-human-anatomy/issues/10>;
+   texto y estado en `docs/consulta-licencia-UW.md`), pendiente de respuesta;
    si la licencia es compatible, se retiran de la lista y se regenera.
    **Licencia del código: HECHO (v0.4).** MIT, archivo `LICENSE`; modelos y
    datos siguen bajo CC BY-SA 4.0 (`LICENSES.md`).
