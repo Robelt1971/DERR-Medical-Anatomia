@@ -7,7 +7,11 @@ módulos ES + three.js vendorizado.
 
 ## Ejecutar
 
-Los módulos ES y `fetch()` no funcionan abriendo el archivo directamente; hace
+Versión publicada: <https://robelt1971.github.io/DERR-Medical-Anatomia/> (GitHub
+Pages; se despliega desde `main` con `.github/workflows/pages.yml`, que antes
+comprueba los datos con `scripts/verificar_datos.py`).
+
+En local, los módulos ES y `fetch()` no funcionan abriendo el archivo directamente; hace
 falta cualquier servidor estático:
 
 ```bash
