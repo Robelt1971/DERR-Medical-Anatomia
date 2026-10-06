@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Node (la prueba de humo usa Playwright instalado aparte; no se vendoriza)
+node_modules/
+
+# Hojas de oleada de revisión clínica: llevan el nombre del revisor y no se guardan en el repositorio
+oleada-*.csv
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+*.swp

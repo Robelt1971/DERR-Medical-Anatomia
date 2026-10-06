@@ -28,7 +28,7 @@ python3 -m http.server 8080
 | `data/estructuras.json` | Manifiesto: cabecera (fecha, origen y commit de Z-Anatomy, objetos excluidos y sin geometría) y, por estructura, nombre en inglés, español, latín (Terminologia Anatomica), francés y portugués; lado; grupo anatómico (sin repetir el sistema); clave de definición. Los nombres en neerlandés y papiamento se cargan aparte (abajo). |
 | `data/definiciones.json` | Resúmenes en inglés (Wikipedia, CC BY-SA; uno de Open Anatomy) con enlace a la fuente, que la ficha muestra por dominio. |
 | `data/nombres-nl-pap.json` | Tabla propia de DERR: nombre en neerlandés y papiamento (Aruba) por nombre inglés, con la fuente de cada uno: `wikipedia-nl` (título coincidente en la Wikipedia en neerlandés), `ia` (generado por modelo de lenguaje) o `revisado` (revisión clínica). **Un nombre `ia` no se muestra nunca**: en su lugar la app enseña el latín (Terminologia Anatomica) y lo dice en la ficha y en los ejercicios; el selector de idioma marca nl y pap con ⚠ mientras quede algo sin revisar. |
-| `data/revision-nombres-nl-pap.csv` | Hoja maestra de revisión clínica (separador `;`). Se trabaja por oleadas: `scripts/oleada_revision.py --sistemas esqueletico muscular --salida oleada-1.csv` saca la hoja de esos sistemas; el revisor marca `ok_nl`/`ok_pap` o escribe la corrección en Excel, y `scripts/aplicar_revision.py --csv oleada-1.csv` vuelca el resultado al JSON con fuente `revisado`. La columna `revisor` se rellena en la hoja de oleada y no se vuelca al repositorio: la hoja maestra no lleva nombres. |
+| `data/revision-nombres-nl-pap.csv` | Hoja maestra de revisión clínica (separador `;`): los nombres y sus fuentes, sin columnas de trabajo. Se trabaja por oleadas: `scripts/oleada_revision.py --sistemas esqueletico muscular --salida oleada-1.csv` saca la hoja de esos sistemas y le añade las columnas `ok_nl`, `ok_pap`, `correccion_nl`, `correccion_pap` y `revisor`; el revisor las rellena en Excel y `scripts/aplicar_revision.py --csv oleada-1.csv` vuelca el resultado al JSON con fuente `revisado`. Las hojas de oleada no se guardan en el repositorio (`.gitignore`). |
 | `scripts/` | Pipeline reproducible desde el `.blend` original (ver abajo): `exportar_zanatomy.py`, `comprimir.sh`, `exclusiones.json` (estructuras y definiciones que no se exportan), `listar_uw.py` (mantiene la lista de objetos de la UW), `verificar_datos.py` (coherencia manifiesto ↔ GLB ↔ tabla nl/pap), `oleada_revision.py` y `aplicar_revision.py` (hoja de revisión ↔ JSON). |
 | `tests/humo.mjs` | Prueba de humo en Chromium sin cabeza (abajo). |
 | `LICENSE` | Licencia MIT del código de la app. |
@@ -89,7 +89,7 @@ definición del propio archivo.
 ## Límites conocidos
 
 - Las curvas de vasos y nervios se exportan como tubos (bevel de Blender), por
-  eso `cardiovascular.glb` es el más pesado (10 MB).
+  eso `cardiovascular.glb` es el más pesado (tamaños en la spec, §4).
 - Faltan traducciones en algunas estructuras y definición en otras; el visor
   cae al inglés o indica que no hay definición. `verificar_datos.py` dice cuántas.
 - **Neerlandés y papiamento son traducciones propias de DERR, no de Z-Anatomy.**

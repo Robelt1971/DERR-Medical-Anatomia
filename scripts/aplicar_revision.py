@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Vuelca la revisión clínica de data/revision-nombres-nl-pap.csv en data/nombres-nl-pap.json.
-Uso: python3 scripts/aplicar_revision.py [--csv ruta] [--seco]
+"""Vuelca una hoja de oleada revisada (scripts/oleada_revision.py) en data/nombres-nl-pap.json.
+Uso: python3 scripts/aplicar_revision.py --csv <hoja-rellena.csv> [--seco]
 Por cada fila: si ok_nl vale "si"/"sí"/"x"/"ok", o hay correccion_nl, el nombre neerlandés pasa a
 `nl_fuente: "revisado"` (con la corrección si la hay). Igual para pap. Las filas sin marcar no cambian.
 La ficha muestra "revisado clínicamente" para esa fuente y deja de avisar.
-Después: regenerar el CSV desde el JSON no hace falta; el CSV sigue siendo la hoja de trabajo y el
-JSON el dato que usa la app. Ejecutar luego scripts/verificar_datos.py.
+La hoja de oleada no se guarda en el repositorio (lleva el nombre del revisor); el JSON es el dato
+que usa la app. Ejecutar luego scripts/verificar_datos.py.
 """
 import argparse, csv, json, os, sys
 
@@ -15,7 +15,7 @@ SI = {'si', 'sí', 'x', 'ok', 'yes', 'ja', '1', 'true'}
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--csv', default=os.path.join(DATA, 'revision-nombres-nl-pap.csv'))
+    ap.add_argument('--csv', required=True, help='hoja de oleada rellena (no la hoja maestra)')
     ap.add_argument('--seco', action='store_true', help='solo informa, no escribe')
     a = ap.parse_args()
     tabla_path = os.path.join(DATA, 'nombres-nl-pap.json')
