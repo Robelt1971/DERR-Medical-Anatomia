@@ -171,6 +171,16 @@ coherencia de los datos sin navegador. Cómo ejecutarlos: README.
 La prueba de humo se ejecuta a mano antes de mezclar (necesita Playwright).
 El despliegue automático a GitHub Pages (`.github/workflows/pages.yml`) solo
 ejecuta `verificar_datos.py`: una regresión en `app/` no lo detendría.
+Publica solo `index.html`, `app/`, `vendor/`, `data/`, `modelos/`, `LICENSE` y
+`LICENSES.md`; las acciones van fijadas por SHA de commit.
+
+`index.html` declara una Content-Security-Policy: solo recursos propios, el
+`importmap` autorizado por su hash y `'wasm-unsafe-eval'` para el decodificador
+meshopt. Si se edita el `importmap`, hay que recalcular el hash; con la CSP mal,
+la prueba de humo falla (el GLB no se decodifica o el módulo no carga). Los
+enlaces de definiciones solo se muestran si son `https:`. Origen de estas
+medidas: auditoría con REA del 2026-10-16
+(`Robelt1971/Robelt1971`, `docs/DERR-Auditoria-REA-Anatomia.md`).
 
 Pendiente de probar en hardware real: rendimiento con todos los sistemas
 activos (~3,6 M de triángulos) en portátiles sin GPU dedicada.

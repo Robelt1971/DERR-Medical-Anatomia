@@ -79,6 +79,10 @@ python3 -m http.server 8080 &
 node tests/humo.mjs http://127.0.0.1:8080/    # requiere Playwright con Chromium
 ```
 
+`index.html` lleva una Content-Security-Policy con el hash del `importmap`. Si
+cambias el `importmap`, recalcula el hash (sha256 en base64 de su contenido
+exacto) o la app no cargará; la prueba de humo lo detecta.
+
 El export tarda unos dos minutos y necesita ~6 GB de RAM. Qué hace: por cada
 colección de sistema del `.blend` selecciona las mallas y curvas reales
 (descarta etiquetas, grupos `.g`/`.j`, inserciones musculares y objetos sin

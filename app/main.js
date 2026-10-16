@@ -144,9 +144,11 @@ function mostrarFicha(node) {
   const dp = document.createElement('p'); dp.className = 'def';
   if (def) {
     dp.textContent = def.summary + ' ';
-    if (def.url) {
+    // Solo enlaces https: un javascript: o data: en los datos no llega nunca al href.
+    let enlace = null; try { enlace = def.url ? new URL(def.url) : null; } catch { enlace = null; }
+    if (enlace && enlace.protocol === 'https:') {
       // La etiqueta de fuente y licencia depende del dominio real; no todas las definiciones son de Wikipedia.
-      let host = ''; try { host = new URL(def.url).hostname; } catch { host = ''; }
+      const host = enlace.hostname;
       const a = document.createElement('a'); a.href = def.url; a.target = '_blank'; a.rel = 'noopener';
       a.textContent = host === 'en.wikipedia.org' ? t('fuente_wiki') : t('fuente_otra', { host });
       dp.appendChild(a);
