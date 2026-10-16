@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <!-- CSP: solo recursos propios. El hash autoriza el importmap de abajo; si se edita, hay que recalcularlo
+       (sha256 en base64 de su contenido exacto entre etiquetas). wasm-unsafe-eval: decodificador meshopt. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-59vnMKVIJ9Jv7WUn1DfFSHnM1C6Y2uSxegfM0TZwXx8=' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; worker-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DERR Medical · Estudio de anatomía 3D</title>
   <meta name="description" content="Módulo de estudio de anatomía humana en 3D de DERR Medical, basado en el atlas libre Z-Anatomy (CC BY-SA 4.0).">
