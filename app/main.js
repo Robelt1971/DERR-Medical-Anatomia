@@ -196,4 +196,4 @@ function pintarProgreso() {
   ui.progreso.textContent = r.n ? t('progreso_resumen', r) : t('progreso_vacio');
 }
 
-iniciar().catch((err) => { console.error(err); const p = document.createElement('p'); p.className = 'vacio'; p.textContent = `Error al iniciar: ${err.message || err}`; ui.ficha.replaceChildren(p); });
+iniciar().catch((err) => { console.error(err); const p = document.createElement('p'); p.className = 'vacio'; p.textContent = t('error_iniciar', { msg: err.message || err }); ui.ficha.replaceChildren(p); });
