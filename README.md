@@ -23,7 +23,7 @@ python3 -m http.server 8080
 
 | Carpeta | Contenido |
 |---|---|
-| `index.html`, `app/` | La aplicación: visor (`visor.js`), datos (`datos.js`), modos de estudio y progreso (`estudio.js`), textos es/en/nl (`i18n.js`). |
+| `index.html`, `app/` | La aplicación: visor (`visor.js`), datos (`datos.js`), modos de estudio y progreso (`estudio.js`), textos es/en/nl/pap (`i18n.js`). |
 | `modelos/` | Un GLB comprimido (meshopt) por sistema: esquelético, articulaciones, muscular, cardiovascular, linfoide, nervioso y órganos de los sentidos, visceral, regiones. Las cifras (estructuras por sistema, tamaño) las imprime `scripts/verificar_datos.py` y están en la spec. |
 | `data/estructuras.json` | Manifiesto: cabecera (fecha, origen y commit de Z-Anatomy, objetos excluidos y sin geometría) y, por estructura, nombre en inglés, español, latín (Terminologia Anatomica), francés y portugués; lado; grupo anatómico (sin repetir el sistema); clave de definición. Los nombres en neerlandés y papiamento se cargan aparte (abajo). |
 | `data/definiciones.json` | Resúmenes en inglés (Wikipedia, CC BY-SA; uno de Open Anatomy) con enlace a la fuente, que la ficha muestra por dominio. |
